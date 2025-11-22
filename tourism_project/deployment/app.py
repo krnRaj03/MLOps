@@ -5,14 +5,13 @@ import joblib
 import os
 
 token = os.environ.get("HF_TOKEN")
-api = HfApi(token=token)
 
 # Download the model 
 model_path = hf_hub_download(
     repo_id="Hugo014/Tourism-Model",  # ← Changed from Tourism-Package-Prediction
     filename="best_tourism_model_v2.joblib",
     repo_type="model",  # ← Add this explicitly
-    token=os.environ["HF_TOKEN"]  # ← Pass token
+    token=token  # ← Pass token
 )
 model = joblib.load(model_path)
 print("Model loaded successfully!")
