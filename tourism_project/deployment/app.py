@@ -4,14 +4,15 @@ from huggingface_hub import hf_hub_download
 import joblib
 import os
 
+# Get token from environment
 token = os.environ.get("HF_TOKEN")
 
 # Download the model 
 model_path = hf_hub_download(
-    repo_id="Hugo014/Tourism-Model",  # ← Changed from Tourism-Package-Prediction
+    repo_id="Hugo014/Tourism-Model",
     filename="best_tourism_model_v2.joblib",
-    repo_type="model",  # ← Add this explicitly
-    token=token  # ← Pass token
+    repo_type="model",
+    token=token
 )
 model = joblib.load(model_path)
 print("Model loaded successfully!")
@@ -90,6 +91,7 @@ def encode_inputs():
     passport_encoded = 1 if passport == "Yes" else 0
     
     return {
+        'Unnamed: 0': 0,  # Model expects this column (dummy index)
         'Age': age,
         'TypeofContact': contact_encoded,
         'CityTier': city_tier_num,
